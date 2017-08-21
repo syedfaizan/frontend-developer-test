@@ -9,4 +9,4 @@ out
 gen
 
 node_modules/
-
+app/bower_libs/
