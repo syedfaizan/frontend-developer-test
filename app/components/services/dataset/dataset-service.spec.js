@@ -9,23 +9,25 @@ describe('Fetch Datasets: ', function () {
     beforeEach(inject(function (_datasetProvider_, $httpBackend) {
         datasetProvider = _datasetProvider_;
         httpBackend = $httpBackend;
-
-
-    }));
-
-
-    it('should return audience json object', function (done) {
-        httpBackend.whenGET('http://localhost:5000/data/audience.json').respond({
+        httpBackend.when('GET','data/audience.json').respond({
             data: {
                 audience: [
                     [1, 2]
                 ]
             }
         });
-        datasetProvider.get('audience').then(function (response) {
-            expect(typeof response).toBe('object');
-        });
+    }));
 
+
+    it("dataSet get should be defined", function () {
+        expect(datasetProvider.get).toBeDefined();
+    });
+
+    it('should return audience json object', function () {
+
+        datasetProvider.get('audience').then(function (response) {
+            expect(typeof response).toEqual('object');
+        });
 
         httpBackend.flush();
 

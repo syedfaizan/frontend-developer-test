@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    hello from home
-    <canvas id="bar" class="chart chart-bar"
-            chart-data="audience" chart-labels="labels"> chart-series="series"
+<section>
+    <form novalidate class="form">
+        <select name="dataset" id="" class="form-group" ng-model="typeOfData" ng-change="submit(typeOfData)">
+            <option value="audience" selected>Audience</option>
+            <option value="bandwidth.cdn">CDN Bandwidth</option>
+            <option value="bandwidth.p2p">P2P Bandwidth</option>
+        </select>
+    </form>
+
+    <canvas id="bar" class="chart chart-line"
+            chart-data="y" chart-labels="x" chart-colors="colors">
     </canvas>
-</body>
-</html>
+</section>
