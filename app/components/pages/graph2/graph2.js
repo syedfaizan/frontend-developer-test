@@ -20,18 +20,22 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
 
         var dataTransform = function (input) {
             var out = [];
-            for(var i in input){
-                if(Array.isArray(input[i])){
+            for (var i in input) {
+                if (Array.isArray(input[i])) {
                     out.push(unitTransform(input[i]));
                 }
             }
             return out;
         };
 
-        var unitTransform = function ( input ) {
+        var unitTransform = function (input) {
             return {
-                labels: input.map(function( item ) {return new Date(item[0]).toLocaleString()}),
-                data: input.map(function ( item ) { return item[1]; })
+                labels: input.map(function (item) {
+                    return new Date(item[0]).toLocaleString()
+                }),
+                data: input.map(function (item) {
+                    return item[1];
+                })
             }
         };
         $scope.dataTransform = dataTransform;
@@ -53,11 +57,11 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
 
                     audience.map(function (item) {
                         data.push(item.data);
-                        labels = item.labels;
                     });
 
                     bandwidth.map(function (item) {
-                       data.push(item.data);
+                        data.push(item.data);
+                        labels = item.labels;
                     });
                     console.log(data);
                     $scope.data = data;

@@ -24,12 +24,24 @@ angular.module('devTest.graph1', ['ui.router', 'devTest.dataset'])
             return datasetProvider.get(source)
                 .then(function (response) {
                     $scope.dataSource = response.data;
-                    source = source == 'streams'? 'maxViewers' : source;
-                    $scope.labels = _.map($scope.dataSource, source);
+                    $scope.optionsForYAxis = $scope.dataTransformForYAxis($scope.dataSource, source);
+                    source = (source == 'streams') ? 'maxViewers' : source;
+                    $scope.labels = _.map($scope.dataSource, source)
                 })
         };
 
+        $scope.dataTransformForYAxis = function ( dataSource , source) {
+            var out = Object.keys(dataSource[0]);
+            out.splice(out.indexOf(source), 1); // remove the source key from the array so we don't compare same source on both axes;
+            return out;
+        };
+
         $scope.chooseYaxis = function ( option ) {
-            $scope.data = _.map($scope.dataSource, option);
+            $scope.data = _.map($scope.dataSource, option).map(function ( item ) {
+                if( item > 100000){
+                    item /= 100000;
+                }
+                return item;
+            });
         }
     }]);

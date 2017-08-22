@@ -7,12 +7,13 @@ angular.module('devTest', [
     'chart.js',
     'devTest.graph1',
     'devTest.graph2',
-    'devTest.dataset'
+    'devTest.dataset',
+    'devTest.home'
 ]).
 config([
     '$locationProvider',
     '$stateProvider',
     '$urlRouterProvider',
     function($locationProvider, $stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/graph1');
+    $urlRouterProvider.otherwise('/');
 }]);
