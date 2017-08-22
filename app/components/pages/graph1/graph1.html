@@ -1,0 +1,32 @@
+<section>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="option1">Choose a data for X axis</label>
+                <select name="" id="option1" class="form-control" ng-model="option1" ng-change="changeDataSource(option1)">
+                    <option value="country">Country</option>
+                    <option value="isp">ISP</option>
+                    <option value="platform">Platform</option>
+                    <option value="streams">Streams</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="option2">Choose a data for Y axis</label>
+                <select name="" id="option2" class="form-control" ng-model="option2" ng-disabled="!option1" ng-change="chooseYaxis(option2)">
+                    <option value="cdn">Bandwidth (CDN) in Bytes</option>
+                    <option value="p2p">Bandwidth (P2P) in Bytes</option>
+                    <option value="total">Total</option>
+                    <option value="percentage">Percentage</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <canvas id="bar" class="chart chart-bar"
+            chart-data="data" chart-labels="labels">
+    </canvas>
+</section>

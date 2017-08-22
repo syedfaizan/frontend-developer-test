@@ -5,7 +5,8 @@
 angular.module('devTest', [
     'ui.router',
     'chart.js',
-    'devTest.home',
+    'devTest.graph1',
+    'devTest.graph2',
     'devTest.dataset'
 ]).
 config([
@@ -13,5 +14,5 @@ config([
     '$stateProvider',
     '$urlRouterProvider',
     function($locationProvider, $stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/graph1');
 }]);
