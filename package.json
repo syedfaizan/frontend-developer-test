@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && http-server -p 5000 -a localhost -c-1 ./app",
+    "prestart": "npm install && npm run test",
+    "start": "http-server -p 5000 -a localhost -c-1 ./app",
     "test": "karma start"
   },
   "repository": {
@@ -24,7 +25,6 @@
     "jasmine": "^2.7.0",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.0",
-    "karma-phantomjs-launcher": "^1.0.4"
+    "karma-jasmine": "^1.1.0"
   }
 }

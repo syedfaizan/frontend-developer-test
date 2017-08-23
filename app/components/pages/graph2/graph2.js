@@ -36,6 +36,11 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
                 ]
             }
         };
+        /**
+         * Converts input into values that could be plotted on X and Y axis
+         * @param {Array} input - raw JSON data from dataSet
+         * @returns {{labels: Array of date Objects, data: Array of }}
+         */
         var unitTransform = function (input) {
             return {
                 labels: input.map(function (item) {
@@ -46,7 +51,11 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
                 })
             }
         };
-
+        /**
+         * Transforms data to match the input format of Chart directive
+         * @param {Object} input - output of unitTransform method
+         * @returns {Array} - Array of arrays to be plotted on the Y axis
+         */
         var dataTransform = function (input) {
             var out = [];
             for (var i in input) {
@@ -59,10 +68,12 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
 
         $scope.dataTransform = dataTransform;
         $scope.unitTransform = unitTransform;
-
+        /**
+         *  Fetches the initial data from json files to plot graph - Here Audience and bandwidth both are compared against time
+         */
         $scope.updateGraphData = function () {
             var audience, bandwidth;
-            datasetProvider.get('audience')
+            return datasetProvider.get('audience')
                 .then(function (data) {
                     audience = data.data;
                     return datasetProvider.get('bandwidth');
@@ -88,6 +99,9 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
                     $scope.data = data;
                     $scope.labels = labels;
 
+                })
+                .catch(function (err) {
+                    //throw error or handle it here
                 })
 
         };

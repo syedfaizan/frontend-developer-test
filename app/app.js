@@ -1,9 +1,11 @@
 /**
  * Created by syedf on 20-08-2017.
+ *
+ * The root of angular app
  */
 
 angular.module('devTest', [
-    'ui.router',
+    'ui.router', // list of modules required for the app to run
     'chart.js',
     'devTest.graph1',
     'devTest.graph2',
@@ -11,9 +13,9 @@ angular.module('devTest', [
     'devTest.home'
 ]).
 config([
-    '$locationProvider',
-    '$stateProvider',
     '$urlRouterProvider',
-    function($locationProvider, $stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
-}]);
+    function ($urlRouterProvider) {
+        // any gibberish url will redirect to '/' url
+        $urlRouterProvider.otherwise('/');
+    }
+]);
