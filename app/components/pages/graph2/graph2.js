@@ -15,8 +15,37 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
     }])
 
     .controller('graph2Ctrl', ['$scope', 'datasetProvider', function ($scope, datasetProvider) {
-        $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
-        $scope.series = ['Audience', 'CDN (Bytes)', 'P2P (Bytes)'];
+        $scope.colors = ['#4444', '#fff', '#ff8e72'];
+        $scope.series = ['Audience', 'CDN (GB)', 'P2P (GB)'];
+        $scope.datasetOverride = [{ yAxisID: 'y-axis-2' }, { yAxisID: 'y-axis-1' }];
+        $scope.options = {
+            scales: {
+                yAxes: [
+                    {
+                        id: 'y-axis-1',
+                        type: 'linear',
+                        display: true,
+                        position: 'left'
+                    },
+                    {
+                        id: 'y-axis-2',
+                        type: 'linear',
+                        display: true,
+                        position: 'right'
+                    }
+                ]
+            }
+        };
+        var unitTransform = function (input) {
+            return {
+                labels: input.map(function (item) {
+                    return new Date(item[0]).toLocaleString();
+                }),
+                data: input.map(function (item) {
+                    return item[1];
+                })
+            }
+        };
 
         var dataTransform = function (input) {
             var out = [];
@@ -28,16 +57,6 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
             return out;
         };
 
-        var unitTransform = function (input) {
-            return {
-                labels: input.map(function (item) {
-                    return new Date(item[0]).toLocaleString()
-                }),
-                data: input.map(function (item) {
-                    return item[1];
-                })
-            }
-        };
         $scope.dataTransform = dataTransform;
         $scope.unitTransform = unitTransform;
 
@@ -60,10 +79,12 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
                     });
 
                     bandwidth.map(function (item) {
+                        item.data = item.data.map(function( item ) {
+                          return item / 100000;
+                        });
                         data.push(item.data);
                         labels = item.labels;
                     });
-                    console.log(data);
                     $scope.data = data;
                     $scope.labels = labels;
 

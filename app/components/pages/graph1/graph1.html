@@ -10,7 +10,7 @@
                     <option value="platform">Platform</option>
                     <option value="streams">Streams</option>
                 </select>
-                <p ng-show="option1 == 'streams'">Max Viewers are shown instead of streams</p>
+                <p ng-show="option1 === 'streams'">Max Viewers is shown on X axis</p>
             </div>
         </div>
         <div class="col-lg-6">
@@ -26,6 +26,6 @@
 
 
     <canvas id="bar" class="chart chart-bar"
-            chart-data="data" chart-labels="labels">
+            chart-data="data" chart-labels="labels" >
     </canvas>
 </section>

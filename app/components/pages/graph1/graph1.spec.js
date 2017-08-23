@@ -20,35 +20,22 @@ describe("Tests the units of graph1Ctrl", function () {
             "country": "KG"
         }
     ];
+
     var dummySource = 'country';
-
-
-    var dummyResponse = {
-        data: [{title:'myTitle'}, {title:'myTitle2'}]
-    };
 
     beforeEach(module('devTest.graph1'));
 
+    beforeEach(inject(function ($controller) {
+        ctrl = $controller('graph1Ctrl', {$scope: scope});
+    }));
+
     it('verifies default select values', function () {
-
-        var scope = {};
-        var ctrl;
-
-        inject(function ($controller) {
-            ctrl = $controller('graph1Ctrl', {$scope: scope});
-        });
 
         expect(scope.option1).toBeDefined();
         expect(scope.option2).toBeDefined();
     });
 
     it("Verify: dataTransforForYAxis method", function () {
-        var scope = {};
-        var ctrl;
-
-        inject(function ($controller) {
-            ctrl = $controller('graph1Ctrl', {$scope: scope});
-        });
 
         scope.dataSource = dummyDataSource;
         expect(scope.dataTransformForYAxis(dummyDataSource, dummySource).length).toEqual(4)
@@ -56,13 +43,6 @@ describe("Tests the units of graph1Ctrl", function () {
     });
 
     it('Verify: chooseYaxis method', function () {
-        var scope = {};
-        var ctrl;
-
-        inject(function ($controller) {
-            ctrl = $controller('graph1Ctrl', {$scope: scope});
-        });
-
         scope.dataSource = dummyDataSource;
         scope.chooseYaxis('cdn');
         expect(scope.data.length).toEqual(2);
