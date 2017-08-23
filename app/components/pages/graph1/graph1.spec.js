@@ -22,6 +22,26 @@ describe("Tests the units of graph1Ctrl", function () {
     ];
 
     var dummySource = 'country';
+    var dummyOptions = {
+        scales: {
+            yAxes: [
+                {
+                    scaleLabel: {
+                        display: true,
+                        labelString: null
+                    }
+                }
+            ],
+            xAxes: [
+                {
+                    scaleLabel: {
+                        display: true,
+                        labelString: null
+                    }
+                }
+            ]
+        }
+    };
 
     beforeEach(module('devTest.graph1'));
 
@@ -58,5 +78,10 @@ describe("Tests the units of graph1Ctrl", function () {
         dummyDataSetProvider.get();
         expect(dummyDataSetProvider.get).toHaveBeenCalled();
     });
+
+    it("verify: updateChartOptions method", function () {
+        var updatedOptions = scope.updateChartOptions(dummyOptions, 'country', 'cdn');
+        expect(updatedOptions.scales.yAxes[0].scaleLabel.labelString).not.toBeNull();
+    })
 
 });

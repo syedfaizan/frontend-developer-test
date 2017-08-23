@@ -1,10 +1,10 @@
 <section>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="form-group">
                 <label for="option1">Choose data to plot X axis</label>
-                <select name="" id="option1" class="form-control" ng-model="option1" ng-change="changeDataSource(option1)">
+                <select name="" id="option1" class="form-control" ng-model="option1" ng-change="changeDataSource(option1)" ng-disabled="option2">
                     <option value="country">Country</option>
                     <option value="isp">ISP</option>
                     <option value="platform">Platform</option>
@@ -13,7 +13,7 @@
                 <p ng-show="option1 === 'streams'">Max Viewers is shown on X axis</p>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="form-group">
                 <label for="option2">Choose data to plot Y axis</label>
                 <select name="" id="option2" class="form-control" ng-model="option2" ng-disabled="!option1" ng-change="chooseYaxis(option2)">
@@ -21,11 +21,17 @@
                 </select>
             </div>
         </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label>Reset fields</label>
+                <button class="form-control btn btn-warning" ui-sref="graph1" ui-sref-opts="{reload: true}">Reset</button>
+            </div>
+        </div>
 
     </div>
 
 
     <canvas id="bar" class="chart chart-bar"
-            chart-data="data" chart-labels="labels" >
+            chart-data="data" chart-labels="labels" chart-options="options">
     </canvas>
 </section>

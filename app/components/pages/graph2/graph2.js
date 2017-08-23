@@ -25,13 +25,29 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
                         id: 'y-axis-1',
                         type: 'linear',
                         display: true,
-                        position: 'left'
+                        position: 'left',
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Data (in GBs)'
+                        }
                     },
                     {
                         id: 'y-axis-2',
                         type: 'linear',
                         display: true,
-                        position: 'right'
+                        position: 'right',
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of Viewers'
+                        }
+                    }
+                ],
+                xAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
                     }
                 ]
             }
@@ -41,7 +57,7 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
          * @param {Array} input - raw JSON data from dataSet
          * @returns {{labels: Array of date Objects, data: Array of }}
          */
-        var unitTransform = function (input) {
+        $scope.unitTransform = function (input) {
             return {
                 labels: input.map(function (item) {
                     return new Date(item[0]).toLocaleString();
@@ -56,18 +72,16 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
          * @param {Object} input - output of unitTransform method
          * @returns {Array} - Array of arrays to be plotted on the Y axis
          */
-        var dataTransform = function (input) {
+        $scope.dataTransform = function (input) {
             var out = [];
             for (var i in input) {
                 if (Array.isArray(input[i])) {
-                    out.push(unitTransform(input[i]));
+                    out.push($scope.unitTransform(input[i]));
                 }
             }
             return out;
         };
 
-        $scope.dataTransform = dataTransform;
-        $scope.unitTransform = unitTransform;
         /**
          *  Fetches the initial data from json files to plot graph - Here Audience and bandwidth both are compared against time
          */
@@ -80,8 +94,8 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
                 })
                 .then(function (res) {
                     bandwidth = res.data;
-                    audience = dataTransform(audience);
-                    bandwidth = dataTransform(bandwidth);
+                    audience = $scope.dataTransform(audience);
+                    bandwidth = $scope.dataTransform(bandwidth);
                     var data = [];
                     var labels = [];
 
@@ -101,6 +115,7 @@ angular.module('devTest.graph2', ['ui.router', 'devTest.dataset'])
 
                 })
                 .catch(function (err) {
+                    console.error(err);
                     //throw error or handle it here
                 })
 
